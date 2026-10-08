@@ -77,21 +77,20 @@
   .wh-tip{font-size:11px;opacity:.75;margin-top:6px;line-height:1.4;position:relative;z-index:1}
   .wh-deco{position:absolute;right:-14px;top:-14px;font-size:80px;opacity:.07;z-index:0;pointer-events:none}
 
-  /* ── Palette: top color + bottom text card ── */
-  .palette{display:flex;gap:10px;margin-bottom:14px}
-  .color-item{flex:1;border-radius:14px;overflow:hidden;background:#fff;border:1px solid rgba(0,0,0,.07);box-shadow:0 2px 8px rgba(0,0,0,.07)}
-  .color-item.primary{flex:1.6}
-  .color-display{height:52px;position:relative}
-  .color-display .cd-tag{position:absolute;top:8px;right:10px;font-size:10px;font-weight:700;padding:2px 8px;border-radius:6px;background:rgba(255,255,255,.85);color:#2A2A32;letter-spacing:.5px}
-  .color-body{padding:10px 12px 11px}
-  .color-body .cb-name{font-size:14px;font-weight:700;line-height:1.3;color:#2A2A32}
-  .color-body .cb-meta{font-size:11px;margin-top:3px;font-weight:600;color:#55555F}
-  .color-body .cb-relation{font-size:10px;margin-top:2px;font-weight:500;color:#8A8A94;line-height:1.45}
-  .avoid-label{text-align:center;font-size:11px;color:#B43434;margin:-8px 0 10px;letter-spacing:2px;font-weight:700}
-  .avoid-wrap{border:1.5px dashed rgba(180,52,52,.3);border-radius:14px;overflow:hidden}
-  .avoid-wrap .color-item{border:none;box-shadow:none;border-radius:0}
-  .avoid-wrap .color-display{height:36px}
-  .avoid-wrap .color-display .cd-tag{background:rgba(255,255,255,.9);color:#B43434}
+  /* ── Palette: dot + text rows ── */
+  .palette{display:flex;flex-direction:column;gap:2px;margin-bottom:12px}
+  .color-row{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid rgba(0,0,0,.05)}
+  .color-row:last-child{border-bottom:none}
+  .color-dot{width:38px;height:38px;border-radius:11px;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.12)}
+  .color-row-main{flex:1;min-width:0}
+  .cr-name{font-size:14px;font-weight:700;color:#2A2A32;line-height:1.3}
+  .cr-meta{font-size:11px;color:#7A7A85;margin-top:2px;line-height:1.4}
+  .cr-badge{font-size:11px;font-weight:700;padding:3px 10px;border-radius:7px;flex-shrink:0}
+  .cr-badge.ok{background:var(--green-bg);color:var(--green)}
+  .cr-badge.great{background:var(--accent-light);color:var(--accent)}
+  .cr-badge.bad{background:var(--red-bg);color:var(--red)}
+  .palette-divider{height:1px;background:rgba(0,0,0,.06);margin:4px 0}
+  .avoid-label{font-size:11px;color:#B43434;margin:2px 0 6px;letter-spacing:2px;font-weight:700;text-align:center}
 
   /* ── Recommendation ── */
   .rec-color-name{font-size:19px;font-weight:800;color:var(--accent);margin-bottom:6px}
@@ -290,17 +289,15 @@ function renderToday(o, data) {
 
   let avoidBlocks='';
   if(o.colors.avoid?.length){
-    avoidBlocks=`<div class="avoid-label">— 今日不宜 —</div><div class="palette">`+o.colors.avoid.map(a=>`
-      <div class="avoid-wrap">
-        <div class="color-item">
-          <div class="color-display" style="background:${esc(a.hex)}"><span class="cd-tag">不宜</span></div>
-          <div class="color-body">
-            <div class="cb-name">${esc(a.name)}</div>
-            <div class="cb-meta">${esc(a.element)}</div>
-            <div class="cb-relation">${esc(a.reason)}</div>
-          </div>
+    avoidBlocks=`<div class="palette-divider"></div><div class="avoid-label">— 今日不宜 —</div>`+o.colors.avoid.map(a=>`
+      <div class="color-row">
+        <div class="color-dot" style="background:${esc(a.hex)};opacity:.5;filter:grayscale(.3)"></div>
+        <div class="color-row-main">
+          <div class="cr-name" style="color:#999">${esc(a.name)}</div>
+          <div class="cr-meta">${esc(a.element)} · ${esc(a.reason)}</div>
         </div>
-      </div>`).join('')+`</div>`;
+        <span class="cr-badge bad">不宜</span>
+      </div>`).join('');
   }
 
   let ideas=r.outfit_ideas?.length?`
@@ -348,23 +345,24 @@ function renderToday(o, data) {
   </div>
   <div class="card card-green"><div class="card-title">👗 今日穿搭 · ${esc(o.ganzhi)}${esc(o.element)}日</div>
     <div class="palette">
-      <div class="color-item primary">
-        <div class="color-display" style="background:${esc(o.colors.primary.hex)}"><span class="cd-tag">${esc(o.colors.primary.status)}</span></div>
-        <div class="color-body">
-          <div class="cb-name">${esc(o.colors.primary.name)}</div>
-          <div class="cb-meta">${esc(o.colors.primary.element)} · ${esc(o.colors.primary.relation)}</div>
-          <div class="cb-relation">${esc(o.colors.primary.reason)}</div>
+      <div class="color-row">
+        <div class="color-dot" style="background:${esc(o.colors.primary.hex)}"></div>
+        <div class="color-row-main">
+          <div class="cr-name">${esc(o.colors.primary.name)}</div>
+          <div class="cr-meta">${esc(o.colors.primary.element)} · ${esc(o.colors.primary.relation)} · ${esc(o.colors.primary.reason)}</div>
         </div>
+        <span class="cr-badge ${o.colors.primary.status==='大吉'?'great':'ok'}">${esc(o.colors.primary.status)}</span>
       </div>
-      <div class="color-item">
-        <div class="color-display" style="background:${esc(o.colors.secondary.hex)}"><span class="cd-tag">${esc(o.colors.secondary.status)}</span></div>
-        <div class="color-body">
-          <div class="cb-name">${esc(o.colors.secondary.name)}</div>
-          <div class="cb-meta">${esc(o.colors.secondary.element)} · ${esc(o.colors.secondary.relation)}</div>
-          <div class="cb-relation">${esc(o.colors.secondary.reason)}</div>
+      <div class="color-row">
+        <div class="color-dot" style="background:${esc(o.colors.secondary.hex)}"></div>
+        <div class="color-row-main">
+          <div class="cr-name">${esc(o.colors.secondary.name)}</div>
+          <div class="cr-meta">${esc(o.colors.secondary.element)} · ${esc(o.colors.secondary.relation)} · ${esc(o.colors.secondary.reason)}</div>
         </div>
+        <span class="cr-badge ok">${esc(o.colors.secondary.status)}</span>
       </div>
-    </div>${avoidBlocks}
+      ${avoidBlocks}
+    </div>
     <div class="rec-color-name">🔥 推荐：${esc(r.color_name||'')}</div>
     <div class="rec-why">${esc(r.why||'')}</div>
     ${r.base_color?`<div class="base-color-note">基础色：${esc(r.base_color)}</div>`:''}
