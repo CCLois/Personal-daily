@@ -33,7 +33,33 @@
   .card{background:var(--card);border-radius:var(--radius);margin:10px 14px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--border)}
   .card-title{font-size:13px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 
-  /* Weather */
+  /* ── Quote ── */
+  .quote-bar{padding:14px 20px 4px}
+  .quote-text{font-size:14px;color:var(--text2);line-height:1.7;font-style:italic;position:relative;padding-left:14px}
+  .quote-text::before{content:"";position:absolute;left:0;top:4px;bottom:4px;width:3px;border-radius:2px;background:var(--accent);opacity:.6}
+  .quote-source{font-size:11px;color:var(--text3);margin-top:4px;padding-left:14px}
+
+  /* ── Weather Card ── */
+  .weather-hero{border-radius:var(--radius);margin:10px 14px;padding:20px;position:relative;overflow:hidden;border:1px solid var(--border)}
+  .wh-sunny{background:linear-gradient(135deg,#1a1a4e 0%,#2d4a8e 60%,#3a6ab0 100%)}
+  .wh-cloudy{background:linear-gradient(135deg,#20203a 0%,#35355a 60%,#48487a 100%)}
+  .wh-rainy{background:linear-gradient(135deg,#151d2e 0%,#253550 60%,#35486a 100%)}
+  .wh-snowy{background:linear-gradient(135deg,#22223e 0%,#3a4a6e 60%,#5a7a9e 100%)}
+  .wh-default{background:linear-gradient(135deg,#1a1a3a 0%,#2a2a52 100%)}
+  .wh-inner{display:flex;align-items:center;gap:16px;position:relative;z-index:1}
+  .wh-icon{font-size:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
+  .wh-main{flex:1}
+  .wh-temp-row{display:flex;align-items:baseline;gap:6px}
+  .wh-temp{font-size:44px;font-weight:800;letter-spacing:-2px;line-height:1}
+  .wh-temp-label{font-size:13px;opacity:.7}
+  .wh-cond{font-size:15px;font-weight:600;margin-top:2px;opacity:.9}
+  .wh-temp-range{font-size:13px;opacity:.65;margin-top:2px}
+  .wh-temp-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.15);margin-top:8px;position:relative;overflow:hidden}
+  .wh-temp-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6bcbef,#ffd93d,#e8764c)}
+  .wh-tip{margin-top:10px;font-size:12px;opacity:.75;line-height:1.5;position:relative;z-index:1}
+  .wh-deco{position:absolute;right:-20px;top:-20px;font-size:120px;opacity:.06;z-index:0;pointer-events:none}
+
+  /* ── Weather (legacy, kept for compat) ── */
   .weather-main{display:flex;align-items:center;gap:14px}
   .weather-icon{font-size:42px}.weather-temp{font-size:32px;font-weight:700}
   .weather-temp span{font-size:16px;font-weight:400;color:var(--text2)}
@@ -186,10 +212,34 @@ function render() {
   else { app.innerHTML = tabsHtml + renderMonth(); }
 }
 
+/* ── Weather helpers ── */
+function weatherClass(cond) {
+  if (!cond) return 'wh-default';
+  if (cond.match(/雷|雨|阵雨|暴雨/)) return 'wh-rainy';
+  if (cond.match(/雪/)) return 'wh-snowy';
+  if (cond.match(/晴/)) return 'wh-sunny';
+  if (cond.match(/云|阴|霾|雾/)) return 'wh-cloudy';
+  return 'wh-default';
+}
+function weatherRangePct(low, high) {
+  if (low == null || high == null) return 50;
+  const min = -10, max = 45;
+  const span = Math.min(100, Math.max(0, ((high - low) / (max - min)) * 100));
+  return Math.max(8, Math.round(span));
+}
+
 /* ── Today View ── */
 function renderToday(o, data) {
   const r=o.recommendation||{}, n=o.neutral||{}, w=o.weather||{};
   const stCls=s=>s==='✅'?'ok':s==='⚠️'?'warn':'bad';
+
+  let quoteHtml = '';
+  if (data.quote?.text) {
+    quoteHtml = `<div class="quote-bar">
+      <div class="quote-text">${esc(data.quote.text)}</div>
+      ${data.quote.source ? `<div class="quote-source">—— ${esc(data.quote.source)}</div>` : ''}
+    </div>`;
+  }
 
   let avoidBlocks='';
   if(o.colors.avoid?.length){
@@ -229,11 +279,22 @@ function renderToday(o, data) {
       <span class="meta-tag luck-good">${esc(o.luck)}</span>
     </div>
   </div>
-  <div class="card"><div class="card-title">🌤 今日天气 · 武汉</div>
-    <div class="weather-main"><div class="weather-icon">${esc(w.icon||'🌡')}</div>
-      <div class="weather-info"><div class="weather-temp">${w.low??'—'}<span> - ${w.high??'—'}°C</span></div>
-      <div class="weather-cond">${esc(w.condition||'')}</div></div></div>
-    ${w.tip?`<div class="weather-tip" style="margin-top:8px">${esc(w.tip)}</div>`:''}
+  ${quoteHtml}
+  <div class="weather-hero ${weatherClass(w.condition)}">
+    <div class="wh-deco">${esc(w.icon||'🌡')}</div>
+    <div class="wh-inner">
+      <div class="wh-icon">${esc(w.icon||'🌡')}</div>
+      <div class="wh-main">
+        <div class="wh-temp-row">
+          <span class="wh-temp">${w.high ?? '—'}°</span>
+          <span class="wh-temp-label">/ ${w.low ?? '—'}°C</span>
+        </div>
+        <div class="wh-cond">${esc(w.condition||'')}</div>
+        <div class="wh-temp-range">武汉 · 昼夜温差${w.low!=null&&w.high!=null?w.high-w.low:'—'}°</div>
+        <div class="wh-temp-bar"><div class="wh-temp-fill" style="width:${weatherRangePct(w.low,w.high)}%"></div></div>
+      </div>
+    </div>
+    ${w.tip?`<div class="wh-tip">💡 ${esc(w.tip)}</div>`:''}
   </div>
   <div class="card"><div class="card-title">👗 今日穿搭 · ${esc(o.ganzhi)}${esc(o.element)}日</div>
     <div class="palette">
