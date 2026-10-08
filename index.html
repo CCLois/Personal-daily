@@ -40,24 +40,20 @@
   .quote-source{font-size:11px;color:var(--text3);margin-top:4px;padding-left:14px}
 
   /* ── Weather Card ── */
-  .weather-hero{border-radius:var(--radius);margin:10px 14px;padding:20px;position:relative;overflow:hidden;border:1px solid var(--border)}
+  .weather-hero{border-radius:12px;margin:8px 14px;padding:12px 14px;position:relative;overflow:hidden;border:1px solid var(--border)}
   .wh-sunny{background:linear-gradient(135deg,#1a1a4e 0%,#2d4a8e 60%,#3a6ab0 100%)}
   .wh-cloudy{background:linear-gradient(135deg,#20203a 0%,#35355a 60%,#48487a 100%)}
   .wh-rainy{background:linear-gradient(135deg,#151d2e 0%,#253550 60%,#35486a 100%)}
   .wh-snowy{background:linear-gradient(135deg,#22223e 0%,#3a4a6e 60%,#5a7a9e 100%)}
   .wh-default{background:linear-gradient(135deg,#1a1a3a 0%,#2a2a52 100%)}
-  .wh-inner{display:flex;align-items:center;gap:16px;position:relative;z-index:1}
-  .wh-icon{font-size:52px;filter:drop-shadow(0 2px 8px rgba(0,0,0,.3))}
-  .wh-main{flex:1}
-  .wh-temp-row{display:flex;align-items:baseline;gap:6px}
-  .wh-temp{font-size:44px;font-weight:800;letter-spacing:-2px;line-height:1}
-  .wh-temp-label{font-size:13px;opacity:.7}
-  .wh-cond{font-size:15px;font-weight:600;margin-top:2px;opacity:.9}
-  .wh-temp-range{font-size:13px;opacity:.65;margin-top:2px}
-  .wh-temp-bar{height:4px;border-radius:2px;background:rgba(255,255,255,.15);margin-top:8px;position:relative;overflow:hidden}
-  .wh-temp-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,#6bcbef,#ffd93d,#e8764c)}
-  .wh-tip{margin-top:10px;font-size:12px;opacity:.75;line-height:1.5;position:relative;z-index:1}
-  .wh-deco{position:absolute;right:-20px;top:-20px;font-size:120px;opacity:.06;z-index:0;pointer-events:none}
+  .wh-inner{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+  .wh-icon{font-size:32px;filter:drop-shadow(0 1px 4px rgba(0,0,0,.3))}
+  .wh-info{flex:1;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+  .wh-temp{font-size:28px;font-weight:800;letter-spacing:-1px;line-height:1}
+  .wh-cond{font-size:14px;font-weight:600;opacity:.9}
+  .wh-range{font-size:12px;opacity:.6}
+  .wh-tip{font-size:11px;opacity:.7;margin-top:6px;line-height:1.4;position:relative;z-index:1}
+  .wh-deco{position:absolute;right:-14px;top:-14px;font-size:80px;opacity:.06;z-index:0;pointer-events:none}
 
   /* ── Weather (legacy, kept for compat) ── */
   .weather-main{display:flex;align-items:center;gap:14px}
@@ -284,14 +280,10 @@ function renderToday(o, data) {
     <div class="wh-deco">${esc(w.icon||'🌡')}</div>
     <div class="wh-inner">
       <div class="wh-icon">${esc(w.icon||'🌡')}</div>
-      <div class="wh-main">
-        <div class="wh-temp-row">
-          <span class="wh-temp">${w.high ?? '—'}°</span>
-          <span class="wh-temp-label">/ ${w.low ?? '—'}°C</span>
-        </div>
-        <div class="wh-cond">${esc(w.condition||'')}</div>
-        <div class="wh-temp-range">武汉 · 昼夜温差${w.low!=null&&w.high!=null?w.high-w.low:'—'}°</div>
-        <div class="wh-temp-bar"><div class="wh-temp-fill" style="width:${weatherRangePct(w.low,w.high)}%"></div></div>
+      <div class="wh-info">
+        <span class="wh-temp">${w.high ?? '—'}°</span>
+        <span class="wh-cond">${esc(w.condition||'')}</span>
+        <span class="wh-range">${w.low ?? '—'}~${w.high ?? '—'}°C · 武汉</span>
       </div>
     </div>
     ${w.tip?`<div class="wh-tip">💡 ${esc(w.tip)}</div>`:''}
