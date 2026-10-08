@@ -3,28 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#F6F4EF">
+<meta name="theme-color" content="#FAF5F1">
 <title>工作台</title>
 <style>
   /* ── Design Tokens ── */
   :root {
-    --bg:#F6F4EF;
+    --bg:#FAF5F1;
     --surface:#FFFFFF;
-    --surface2:#FAF8F4;
-    --border:#ECE9E1;
-    --border-strong:#E0DCD2;
-    --text:#1C1C22;
-    --text2:#4A4A55;
-    --text3:#7A7A85;
+    --surface2:#F7F3ED;
+    --border:#EFE9E0;
+    --border-strong:#E2DAD0;
+    --text:#2A2A32;
+    --text2:#4E4E58;
+    --text3:#7E7E88;
     --accent:#C4785A;
-    --accent-light:#F5E8E0;
+    --accent-light:#F9EDE6;
     --green:#3D8B52;
-    --green-bg:#E8F4EA;
+    --green-bg:#EDF5EE;
     --red:#C44444;
-    --red-bg:#F9ECEC;
+    --red-bg:#F9EFEF;
     --yellow:#9A7209;
-    --yellow-bg:#F8F2E0;
+    --yellow-bg:#F8F3E2;
     --blue:#3B7AB8;
+    --blue-bg:#EDF3F9;
+    --purple:#7B5EA7;
+    --purple-bg:#F3F0F8;
+    --teal:#3D8B7E;
+    --teal-bg:#EBF4F2;
     --radius:16px;
     --radius-sm:10px;
     --shadow:0 1px 2px rgba(0,0,0,.04),0 4px 12px rgba(0,0,0,.04);
@@ -88,6 +93,20 @@
   .rec-color-name{font-size:19px;font-weight:800;color:var(--accent);margin-bottom:6px}
   .rec-why{font-size:13px;color:var(--text2);line-height:1.8}
   .base-color-note{display:inline-block;font-size:12px;font-weight:600;padding:4px 12px;border-radius:8px;background:var(--surface2);color:var(--blue);margin-top:10px;border:1px solid var(--border)}
+
+  /* ── Tinted Cards ── */
+  .card-green{background:var(--green-bg);border-color:#D4E8D8}
+  .card-blue{background:var(--blue-bg);border-color:#D0E2F0}
+  .card-purple{background:var(--purple-bg);border-color:#DDD5EC}
+  .card-teal{background:var(--teal-bg);border-color:#CCE8E2}
+  .card-yellow{background:var(--yellow-bg);border-color:#E8E0C8}
+  .card-green .card-title{color:var(--green)}
+  .card-blue .card-title{color:var(--blue)}
+  .card-purple .card-title{color:var(--purple)}
+  .card-teal .card-title{color:var(--teal)}
+  .card-yellow .card-title{color:var(--yellow)}
+  .card-green .neutral-item{background:#fff;border-color:#D4E8D8}
+  .card-teal .neutral-item{background:#fff;border-color:#CCE8E2}
 
   /* ── Collapsible ── */
   .collapsible-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:14px 0 10px;border-top:1px solid var(--border);margin-top:6px;user-select:none}
@@ -273,7 +292,7 @@ function renderToday(o, data) {
   let notes=o.special_notes?.length?`<ul class="special-list">${o.special_notes.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:'';
 
   let review=data.review?`
-    <div class="card"><div class="card-title">🌙 晚间复盘</div>
+    <div class="card card-purple"><div class="card-title">🌙 晚间复盘</div>
       <div class="review-summary">${esc(data.review.summary)}</div>
       ${data.review.weather_check?`<div class="review-weather">天气校验：${esc(data.review.weather_check.deviation)}</div>`:''}
       ${data.review.tomorrow_preview?`<div class="review-tomorrow">明日预告：<strong>${esc(data.review.tomorrow_preview.ganzhi)}·${esc(data.review.tomorrow_preview.element)}日</strong> ${esc(data.review.tomorrow_preview.main_color)}${data.review.tomorrow_preview.weather_note?`<br>${esc(data.review.tomorrow_preview.weather_note)}`:''}</div>`:''}
@@ -301,7 +320,7 @@ function renderToday(o, data) {
     </div>
     ${w.tip?`<div class="wh-tip">💡 ${esc(w.tip)}</div>`:''}
   </div>
-  <div class="card"><div class="card-title">👗 今日穿搭 · ${esc(o.ganzhi)}${esc(o.element)}日</div>
+  <div class="card card-green"><div class="card-title">👗 今日穿搭 · ${esc(o.ganzhi)}${esc(o.element)}日</div>
     <div class="palette">
       <div class="color-block primary" style="background:${esc(o.colors.primary.hex)};color:${esc(o.colors.primary.text_hex)}">
         <div class="cb-name">${esc(o.colors.primary.name)}</div><div class="cb-status">${esc(o.colors.primary.status)}</div><div class="cb-relation">${esc(o.colors.primary.relation)}</div>
@@ -315,16 +334,16 @@ function renderToday(o, data) {
     ${r.base_color?`<div class="base-color-note">基础色：${esc(r.base_color)}</div>`:''}
     ${ideas}${insp}${pit}
   </div>
-  <div class="card"><div class="card-title">⚫ 黑 / 白 / 牛仔 · 当日影响</div>
+  <div class="card card-teal"><div class="card-title">⚫ 黑 / 白 / 牛仔 · 当日影响</div>
     <div class="neutral-row">
       <div class="neutral-item"><div class="neutral-label">黑色/牛仔（水）</div><div class="neutral-status ${stCls(n.black_denim?.status)}">${esc(n.black_denim?.status||'—')}</div><div class="neutral-reason">${esc(n.black_denim?.reason||'')}</div></div>
       <div class="neutral-item"><div class="neutral-label">白色/银灰（金）</div><div class="neutral-status ${stCls(n.white_silver?.status)}">${esc(n.white_silver?.status||'—')}</div><div class="neutral-reason">${esc(n.white_silver?.reason||'')}</div></div>
     </div>
   </div>
-  ${o.fabric_tip?`<div class="card"><div class="card-title">🧵 面料与场景</div><div class="tip-row"><strong>面料：</strong>${esc(o.fabric_tip)}</div>${o.scene_tip?`<div class="tip-row"><strong>场景：</strong>${esc(o.scene_tip)}</div>`:''}</div>`:''}
-  ${notes?`<div class="card"><div class="card-title">📝 特别提醒</div>${notes}</div>`:''}
+  ${o.fabric_tip?`<div class="card card-blue"><div class="card-title">🧵 面料与场景</div><div class="tip-row"><strong>面料：</strong>${esc(o.fabric_tip)}</div>${o.scene_tip?`<div class="tip-row"><strong>场景：</strong>${esc(o.scene_tip)}</div>`:''}</div>`:''}
+  ${notes?`<div class="card card-blue"><div class="card-title">📝 特别提醒</div>${notes}</div>`:''}
   ${review}
-  <div class="card"><div class="card-title">📌 快速便签</div>
+  <div class="card card-yellow"><div class="card-title">📌 快速便签</div>
     <div class="notes-list" id="notesList"></div>
     <div class="note-input-row"><input class="note-input" id="noteInput" placeholder="随手记…" onkeydown="if(event.key==='Enter')addNote()"><button class="btn-add" onclick="addNote()">＋</button></div>
     <div style="font-size:11px;color:var(--text3);margin-top:10px">便签保存在本设备 · 跨设备同步请告诉 AI 助手更新</div>
