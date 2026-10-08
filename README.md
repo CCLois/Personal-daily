@@ -5,7 +5,7 @@
 
 ## 页面地址
 
-`https://cclois.github.io/workbench/`
+`https://cclois.github.io/Personal-daily/`
 （GitHub Pages 自动部署，push 到 main 分支后约 1-2 分钟生效）
 
 ## 仓库结构
