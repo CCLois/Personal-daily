@@ -74,12 +74,14 @@
 
   /* ── Palette ── */
   .palette{display:flex;gap:8px;margin-bottom:14px}
-  .color-block{flex:1;border-radius:12px;padding:14px 10px;text-align:center}
+  .palette-row{display:flex;gap:8px;margin-bottom:0}
+  .color-block{flex:1;border-radius:12px;padding:14px 10px;text-align:center;border:1px solid rgba(0,0,0,.08)}
   .color-block.primary{flex:1.6}
   .color-block .cb-name{font-size:14px;font-weight:700;line-height:1.3}
   .color-block .cb-status{font-size:12px;margin-top:4px;opacity:.85}
   .color-block .cb-relation{font-size:10px;margin-top:2px;opacity:.55}
-  .color-block.avoid-block{opacity:.4;filter:grayscale(.4)}
+  .avoid-block-wrap{flex:1;border:1.5px dashed rgba(0,0,0,.2);border-radius:12px;overflow:hidden}
+  .avoid-block-wrap .color-block{border:none;border-radius:0;height:100%}
   .avoid-label{text-align:center;font-size:11px;color:var(--red);margin:-8px 0 10px;letter-spacing:2px;font-weight:600}
 
   /* ── Recommendation ── */
@@ -249,8 +251,10 @@ function renderToday(o, data) {
   let avoidBlocks='';
   if(o.colors.avoid?.length){
     avoidBlocks=`<div class="avoid-label">— 今日不宜 —</div><div class="palette">`+o.colors.avoid.map(a=>`
-      <div class="color-block avoid-block" style="background:${esc(a.hex)};color:${esc(a.text_hex)}">
-        <div class="cb-name">${esc(a.name)}</div><div class="cb-status">${esc(a.element)}</div><div class="cb-relation">${esc(a.reason)}</div>
+      <div class="avoid-block-wrap">
+        <div class="color-block" style="background:${esc(a.hex)};color:${esc(a.text_hex)};opacity:.55;filter:grayscale(.2)">
+          <div class="cb-name">${esc(a.name)}</div><div class="cb-status">${esc(a.element)}</div><div class="cb-relation">${esc(a.reason)}</div>
+        </div>
       </div>`).join('')+`</div>`;
   }
 
