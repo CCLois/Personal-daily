@@ -7,600 +7,345 @@
 <title>工作台</title>
 <style>
   :root {
-    --bg: #0d0d1a;
-    --card: #16162a;
-    --card2: #1e1e38;
-    --border: #2a2a4a;
-    --text: #e8e8f0;
-    --text2: #9898b0;
-    --text3: #68687f;
-    --accent: #e8a87c;
-    --accent2: #c38e5a;
-    --green: #6bcb77;
-    --red: #e84545;
-    --yellow: #ffd93d;
-    --blue: #6bcbef;
-    --radius: 14px;
-    --shadow: 0 2px 12px rgba(0,0,0,0.3);
+    --bg:#0d0d1a; --card:#16162a; --card2:#1e1e38; --border:#2a2a4a;
+    --text:#e8e8f0; --text2:#9898b0; --text3:#68687f;
+    --accent:#e8a87c; --green:#6bcb77; --red:#e84545; --yellow:#ffd93d; --blue:#6bcbef;
+    --radius:14px; --shadow:0 2px 12px rgba(0,0,0,0.3);
   }
-  * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-  body {
-    font-family: -apple-system, "PingFang SC", "Microsoft YaHei", "Segoe UI", sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    max-width: 480px;
-    margin: 0 auto;
-    padding-bottom: 40px;
-  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;max-width:480px;margin:0 auto;padding-bottom:40px}
+  .hidden{display:none!important}
 
-  /* ── Header ── */
-  .header {
-    padding: 20px 20px 16px;
-    background: linear-gradient(180deg, #12122a 0%, var(--bg) 100%);
-  }
-  .header-date {
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-  }
-  .header-meta {
-    display: flex;
-    gap: 8px;
-    margin-top: 6px;
-    flex-wrap: wrap;
-  }
-  .meta-tag {
-    font-size: 12px;
-    padding: 3px 10px;
-    border-radius: 20px;
-    background: var(--card2);
-    color: var(--text2);
-    border: 1px solid var(--border);
-  }
-  .meta-tag.luck-good { color: var(--green); border-color: #2a5a35; }
-  .meta-tag.element-tag { color: var(--accent); border-color: #5a4530; }
+  /* Tab Bar */
+  .tab-bar{display:flex;gap:4px;padding:0 14px;margin-bottom:4px}
+  .tab-btn{flex:1;padding:10px 0;text-align:center;font-size:14px;font-weight:600;color:var(--text3);background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s}
+  .tab-btn.active{color:var(--accent);border-color:var(--accent);background:var(--card2)}
 
-  /* ── Cards ── */
-  .card {
-    background: var(--card);
-    border-radius: var(--radius);
-    margin: 10px 14px;
-    padding: 16px;
-    box-shadow: var(--shadow);
-    border: 1px solid var(--border);
-  }
-  .card-title {
-    font-size: 13px;
-    color: var(--text3);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 12px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+  /* Header */
+  .header{padding:16px 20px 12px;background:linear-gradient(180deg,#12122a 0%,var(--bg) 100%)}
+  .header-date{font-size:28px;font-weight:700;letter-spacing:-0.5px}
+  .header-meta{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
+  .meta-tag{font-size:12px;padding:3px 10px;border-radius:20px;background:var(--card2);color:var(--text2);border:1px solid var(--border)}
+  .meta-tag.luck-good{color:var(--green);border-color:#2a5a35}
+  .meta-tag.element-tag{color:var(--accent);border-color:#5a4530}
 
-  /* ── Weather ── */
-  .weather-main { display: flex; align-items: center; gap: 14px; }
-  .weather-icon { font-size: 42px; }
-  .weather-temp { font-size: 32px; font-weight: 700; }
-  .weather-temp span { font-size: 16px; font-weight: 400; color: var(--text2); }
-  .weather-info { flex: 1; }
-  .weather-cond { font-size: 15px; margin-bottom: 2px; }
-  .weather-tip { font-size: 12px; color: var(--text2); }
+  /* Cards */
+  .card{background:var(--card);border-radius:var(--radius);margin:10px 14px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--border)}
+  .card-title{font-size:13px;color:var(--text3);text-transform:uppercase;letter-spacing:1px;margin-bottom:12px;display:flex;align-items:center;gap:6px}
 
-  /* ── Color Palette ── */
-  .palette { display: flex; gap: 8px; margin-bottom: 14px; }
-  .color-block {
-    flex: 1;
-    border-radius: 10px;
-    padding: 12px 10px;
-    text-align: center;
-    position: relative;
-    overflow: hidden;
-  }
-  .color-block .cb-name { font-size: 13px; font-weight: 600; line-height: 1.3; }
-  .color-block .cb-status { font-size: 11px; margin-top: 4px; opacity: 0.85; }
-  .color-block .cb-relation { font-size: 10px; margin-top: 2px; opacity: 0.6; }
-  .color-block.primary { flex: 1.6; }
-  .color-block.avoid-block { opacity: 0.45; filter: grayscale(0.4); }
-  .avoid-label {
-    text-align: center;
-    font-size: 11px;
-    color: var(--red);
-    margin-top: -8px;
-    margin-bottom: 10px;
-    letter-spacing: 2px;
-  }
+  /* Weather */
+  .weather-main{display:flex;align-items:center;gap:14px}
+  .weather-icon{font-size:42px}.weather-temp{font-size:32px;font-weight:700}
+  .weather-temp span{font-size:16px;font-weight:400;color:var(--text2)}
+  .weather-cond{font-size:15px;margin-bottom:2px}.weather-tip{font-size:12px;color:var(--text2)}
 
-  /* ── Recommendation ── */
-  .rec-section { margin-top: 4px; }
-  .rec-color-name {
-    font-size: 20px;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: 6px;
-  }
-  .rec-why {
-    font-size: 13px;
-    color: var(--text2);
-    line-height: 1.7;
-  }
-  .base-color-note {
-    display: inline-block;
-    font-size: 12px;
-    padding: 3px 10px;
-    border-radius: 6px;
-    background: var(--card2);
-    color: var(--blue);
-    margin-top: 8px;
-  }
+  /* Palette */
+  .palette{display:flex;gap:8px;margin-bottom:14px}
+  .color-block{flex:1;border-radius:10px;padding:12px 10px;text-align:center;position:relative;overflow:hidden}
+  .color-block .cb-name{font-size:13px;font-weight:600;line-height:1.3}
+  .color-block .cb-status{font-size:11px;margin-top:4px;opacity:.85}
+  .color-block .cb-relation{font-size:10px;margin-top:2px;opacity:.6}
+  .color-block.primary{flex:1.6}
+  .color-block.avoid-block{opacity:.45;filter:grayscale(.4)}
+  .avoid-label{text-align:center;font-size:11px;color:var(--red);margin-top:-8px;margin-bottom:10px;letter-spacing:2px}
 
-  /* ── Neutral status ── */
-  .neutral-row {
-    display: flex;
-    gap: 10px;
-  }
-  .neutral-item {
-    flex: 1;
-    background: var(--card2);
-    border-radius: 10px;
-    padding: 12px;
-    border: 1px solid var(--border);
-  }
-  .neutral-label {
-    font-size: 12px;
-    color: var(--text2);
-    margin-bottom: 4px;
-  }
-  .neutral-status {
-    font-size: 18px;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
-  .neutral-status.ok { color: var(--green); }
-  .neutral-status.warn { color: var(--yellow); }
-  .neutral-status.bad { color: var(--red); }
-  .neutral-reason { font-size: 11px; color: var(--text3); line-height: 1.5; }
+  /* Recommendation */
+  .rec-color-name{font-size:20px;font-weight:700;color:var(--accent);margin-bottom:6px}
+  .rec-why{font-size:13px;color:var(--text2);line-height:1.7}
+  .base-color-note{display:inline-block;font-size:12px;padding:3px 10px;border-radius:6px;background:var(--card2);color:var(--blue);margin-top:8px}
 
-  /* ── Collapsible ── */
-  .collapsible-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    cursor: pointer;
-    padding: 12px 0;
-    border-top: 1px solid var(--border);
-    margin-top: 4px;
-    user-select: none;
-  }
-  .collapsible-header:first-of-type { border-top: none; }
-  .collapsible-title { font-size: 14px; font-weight: 600; }
-  .collapsible-arrow { font-size: 12px; color: var(--text3); transition: transform 0.2s; }
-  .collapsible-content {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-  }
-  .collapsible-content.open { max-height: 800px; }
-  .collapsible-header.open .collapsible-arrow { transform: rotate(90deg); }
+  /* Neutral */
+  .neutral-row{display:flex;gap:10px}
+  .neutral-item{flex:1;background:var(--card2);border-radius:10px;padding:12px;border:1px solid var(--border)}
+  .neutral-label{font-size:12px;color:var(--text2);margin-bottom:4px}
+  .neutral-status{font-size:18px;font-weight:700;margin-bottom:4px}
+  .neutral-status.ok{color:var(--green)}.neutral-status.warn{color:var(--yellow)}.neutral-status.bad{color:var(--red)}
+  .neutral-reason{font-size:11px;color:var(--text3);line-height:1.5}
 
-  .idea-list { list-style: none; padding: 4px 0 12px; }
-  .idea-list li {
-    font-size: 13px;
-    color: var(--text2);
-    line-height: 1.6;
-    padding: 6px 0 6px 16px;
-    position: relative;
-  }
-  .idea-list li::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 13px;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background: var(--accent);
-  }
-  .inspiration-chips {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    padding-bottom: 12px;
-  }
-  .chip {
-    font-size: 12px;
-    padding: 5px 12px;
-    border-radius: 20px;
-    background: var(--card2);
-    color: var(--text2);
-    border: 1px solid var(--border);
-  }
-  .pitfall-list { padding-bottom: 12px; }
-  .pitfall-item {
-    font-size: 12px;
-    color: var(--red);
-    opacity: 0.85;
-    padding: 4px 0 4px 18px;
-    position: relative;
-  }
-  .pitfall-item::before {
-    content: "⚠";
-    position: absolute;
-    left: 0;
-    font-size: 11px;
-  }
+  /* Collapsible */
+  .collapsible-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:12px 0;border-top:1px solid var(--border);margin-top:4px;user-select:none}
+  .collapsible-title{font-size:14px;font-weight:600}
+  .collapsible-arrow{font-size:12px;color:var(--text3);transition:transform .2s}
+  .collapsible-content{max-height:0;overflow:hidden;transition:max-height .3s ease}
+  .collapsible-content.open{max-height:800px}
+  .collapsible-header.open .collapsible-arrow{transform:rotate(90deg)}
+  .idea-list{list-style:none;padding:4px 0 12px}
+  .idea-list li{font-size:13px;color:var(--text2);line-height:1.6;padding:6px 0 6px 16px;position:relative}
+  .idea-list li::before{content:"";position:absolute;left:0;top:13px;width:6px;height:6px;border-radius:50%;background:var(--accent)}
+  .inspiration-chips{display:flex;flex-wrap:wrap;gap:6px;padding-bottom:12px}
+  .chip{font-size:12px;padding:5px 12px;border-radius:20px;background:var(--card2);color:var(--text2);border:1px solid var(--border)}
+  .pitfall-list{padding-bottom:12px}
+  .pitfall-item{font-size:12px;color:var(--red);opacity:.85;padding:4px 0 4px 18px;position:relative}
+  .pitfall-item::before{content:"⚠";position:absolute;left:0;font-size:11px}
 
-  /* ── Notes ── */
-  .notes-list { display: flex; flex-direction: column; gap: 8px; }
-  .note-item {
-    background: var(--card2);
-    border-radius: 10px;
-    padding: 10px 12px;
-    font-size: 13px;
-    line-height: 1.5;
-    cursor: pointer;
-    position: relative;
-    border: 1px solid var(--border);
-  }
-  .note-item.pinned { border-color: var(--accent2); }
-  .note-item .note-pin { color: var(--accent); margin-right: 4px; }
-  .note-item .note-delete {
-    position: absolute;
-    right: 8px;
-    top: 8px;
-    color: var(--text3);
-    font-size: 14px;
-    padding: 2px 6px;
-    cursor: pointer;
-  }
-  .note-input-row { display: flex; gap: 8px; margin-top: 10px; }
-  .note-input {
-    flex: 1;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    padding: 10px 12px;
-    color: var(--text);
-    font-size: 13px;
-    outline: none;
-  }
-  .note-input:focus { border-color: var(--accent2); }
-  .btn-add {
-    background: var(--accent);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 16px;
-    font-size: 13px;
-    cursor: pointer;
-    font-weight: 600;
-  }
+  /* Notes */
+  .notes-list{display:flex;flex-direction:column;gap:8px}
+  .note-item{background:var(--card2);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5;cursor:pointer;position:relative;border:1px solid var(--border)}
+  .note-item.pinned{border-color:var(--accent2)}
+  .note-item .note-pin{color:var(--accent);margin-right:4px}
+  .note-item .note-delete{position:absolute;right:8px;top:8px;color:var(--text3);font-size:14px;padding:2px 6px;cursor:pointer}
+  .note-input-row{display:flex;gap:8px;margin-top:10px}
+  .note-input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-size:13px;outline:none}
+  .note-input:focus{border-color:var(--accent2)}
+  .btn-add{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:13px;cursor:pointer;font-weight:600}
 
-  /* ── Review ── */
-  .review-section { display: none; }
-  .review-section.has-data { display: block; }
-  .review-summary { font-size: 14px; line-height: 1.7; color: var(--text); }
-  .review-weather { font-size: 12px; color: var(--text2); margin-top: 8px; }
-  .review-tomorrow {
-    margin-top: 10px;
-    padding: 10px 12px;
-    background: var(--card2);
-    border-radius: 10px;
-    border: 1px solid var(--border);
-    font-size: 13px;
-  }
-  .review-tomorrow strong { color: var(--accent); }
+  /* Special */
+  .special-list{list-style:none}
+  .special-list li{font-size:12px;color:var(--text2);padding:4px 0 4px 16px;position:relative;line-height:1.5}
+  .special-list li::before{content:"·";position:absolute;left:4px;color:var(--accent);font-weight:700}
+  .tip-row{font-size:12px;color:var(--text2);line-height:1.6;padding:4px 0}
+  .tip-row strong{color:var(--text)}
 
-  /* ── Special notes ── */
-  .special-list { list-style: none; }
-  .special-list li {
-    font-size: 12px;
-    color: var(--text2);
-    padding: 4px 0 4px 16px;
-    position: relative;
-    line-height: 1.5;
-  }
-  .special-list li::before {
-    content: "·";
-    position: absolute;
-    left: 4px;
-    color: var(--accent);
-    font-weight: 700;
-  }
+  /* Review */
+  .review-summary{font-size:14px;line-height:1.7}
+  .review-weather{font-size:12px;color:var(--text2);margin-top:8px}
+  .review-tomorrow{margin-top:10px;padding:10px 12px;background:var(--card2);border-radius:10px;border:1px solid var(--border);font-size:13px}
+  .review-tomorrow strong{color:var(--accent)}
 
-  /* ── Fabric & scene ── */
-  .tip-row {
-    font-size: 12px;
-    color: var(--text2);
-    line-height: 1.6;
-    padding: 4px 0;
-  }
-  .tip-row strong { color: var(--text); font-weight: 600; }
+  /* ── Weekly View ── */
+  .week-summary{font-size:13px;color:var(--text2);line-height:1.7;margin-bottom:4px}
+  .week-card{background:var(--card2);border-radius:12px;padding:14px;margin:8px 14px;border:1px solid var(--border);cursor:pointer;transition:border-color .2s}
+  .week-card.today{border-color:var(--accent);box-shadow:0 0 12px rgba(232,168,124,.15)}
+  .week-card.past{opacity:.55}
+  .week-card-header{display:flex;align-items:center;gap:10px}
+  .week-color-dot{width:36px;height:36px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:16px}
+  .week-day-info{flex:1}
+  .week-date{font-size:14px;font-weight:600}
+  .week-ganzhi{font-size:11px;color:var(--text3);margin-top:1px}
+  .week-temp{font-size:12px;color:var(--text3);text-align:right}
+  .week-detail{display:none;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+  .week-detail.show{display:block}
+  .week-colors{display:flex;gap:6px;margin-bottom:8px}
+  .week-color-tag{flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-size:11px}
+  .week-rec{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:6px}
+  .week-neutral{font-size:11px;color:var(--text3)}
+  .week-adjust{margin-top:6px;font-size:11px;color:var(--yellow);background:rgba(255,217,61,.08);padding:6px 8px;border-radius:6px}
 
-  /* ── Footer ── */
-  .footer {
-    text-align: center;
-    padding: 20px;
-    font-size: 11px;
-    color: var(--text3);
-  }
-  .update-time { margin-top: 4px; }
+  /* ── Monthly View ── */
+  .month-summary{font-size:13px;color:var(--text2);line-height:1.7;margin:10px 14px}
+  .month-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:3px;padding:0 14px}
+  .month-weekday{text-align:center;font-size:10px;color:var(--text3);padding:4px 0;font-weight:600}
+  .month-cell{aspect-ratio:1;border-radius:8px;display:flex;flex-direction:column;align-items:center;justify-content:center;position:relative;font-size:9px;color:var(--text3);background:var(--card2);border:1px solid transparent;overflow:hidden}
+  .month-cell .mc-date{font-size:11px;font-weight:600;color:var(--text2)}
+  .month-cell .mc-ganzhi{font-size:8px;margin-top:1px}
+  .month-cell .mc-color-bar{width:70%;height:3px;border-radius:2px;margin-top:2px}
+  .month-cell.today{border-color:var(--accent);box-shadow:0 0 6px rgba(232,168,124,.2)}
+  .month-cell.today .mc-date{color:var(--accent)}
+  .month-cell.past{opacity:.45}
 
-  /* ── Loading / Error ── */
-  .loading, .error-msg {
-    text-align: center;
-    padding: 60px 20px;
-    color: var(--text3);
-  }
-  .error-msg { color: var(--red); }
-  .retry-btn {
-    margin-top: 12px;
-    background: var(--card2);
-    border: 1px solid var(--border);
-    color: var(--text);
-    padding: 8px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 13px;
-  }
+  /* Footer */
+  .footer{text-align:center;padding:20px;font-size:11px;color:var(--text3)}
+  .loading,.error-msg{text-align:center;padding:60px 20px;color:var(--text3)}
+  .error-msg{color:var(--red)}
+  .retry-btn{margin-top:12px;background:var(--card2);border:1px solid var(--border);color:var(--text);padding:8px 20px;border-radius:8px;cursor:pointer;font-size:13px}
 </style>
 </head>
 <body>
 
-<div id="app">
-  <div class="loading">加载中…</div>
-</div>
+<div id="app"><div class="loading">加载中…</div></div>
 
 <script>
 const app = document.getElementById('app');
+let DATA = {}, WEEKLY = null, MONTHLY = null;
+let currentTab = 'today';
 
-async function load() {
+async function loadAll() {
   try {
-    const res = await fetch('data/today.json?t=' + Date.now());
-    if (!res.ok) throw new Error('数据文件加载失败');
-    const data = await res.json();
-    render(data);
+    const [todayRes, weekRes, monthRes] = await Promise.all([
+      fetch('data/today.json?t=' + Date.now()),
+      fetch('data/weekly.json?t=' + Date.now()).catch(() => null),
+      fetch('data/monthly.json?t=' + Date.now()).catch(() => null)
+    ]);
+    if (!todayRes.ok) throw new Error('数据文件加载失败');
+    DATA = await todayRes.json();
+    if (weekRes && weekRes.ok) WEEKLY = await weekRes.json();
+    if (monthRes && monthRes.ok) MONTHLY = await monthRes.json();
+    render();
   } catch(e) {
-    app.innerHTML = `<div class="error-msg">
-      <div>📭 ${e.message}</div>
-      <div style="margin-top:8px;font-size:12px;color:var(--text3)">请确认 data/today.json 已推送</div>
-      <button class="retry-btn" onclick="load()">重试</button>
+    app.innerHTML = `<div class="error-msg"><div>📭 ${e.message}</div><button class="retry-btn" onclick="loadAll()">重试</button></div>`;
+  }
+}
+
+function esc(s){if(!s)return'';const d=document.createElement('div');d.textContent=s;return d.innerHTML}
+function toggle(h){h.classList.toggle('open');h.nextElementSibling.classList.toggle('open')}
+function switchTab(tab){currentTab=tab;render()}
+
+function render() {
+  const o = DATA.outfit;
+  if (!o) { app.innerHTML='<div class="error-msg">暂无今日数据</div>'; return; }
+
+  let tabsHtml = `
+    <div class="tab-bar">
+      <div class="tab-btn ${currentTab==='today'?'active':''}" onclick="switchTab('today')">今日</div>
+      <div class="tab-btn ${currentTab==='week'?'active':''}" onclick="switchTab('week')">本周</div>
+      <div class="tab-btn ${currentTab==='month'?'active':''}" onclick="switchTab('month')">本月</div>
     </div>`;
-  }
+
+  if (currentTab === 'today') { app.innerHTML = tabsHtml + renderToday(o, DATA); renderNotes(); }
+  else if (currentTab === 'week') { app.innerHTML = tabsHtml + renderWeek(); }
+  else { app.innerHTML = tabsHtml + renderMonth(); }
 }
 
-function esc(s) {
-  if (!s) return '';
-  const d = document.createElement('div');
-  d.textContent = s;
-  return d.innerHTML;
-}
+/* ── Today View ── */
+function renderToday(o, data) {
+  const r=o.recommendation||{}, n=o.neutral||{}, w=o.weather||{};
+  const stCls=s=>s==='✅'?'ok':s==='⚠️'?'warn':'bad';
 
-function render(data) {
-  const o = data.outfit;
-  if (!o) { app.innerHTML = '<div class="error-msg">暂无今日数据</div>'; return; }
-
-  const r = o.recommendation || {};
-  const n = o.neutral || {};
-  const w = o.weather || {};
-
-  const statusClass = s => s === '✅' ? 'ok' : s === '⚠️' ? 'warn' : 'bad';
-
-  let avoidBlocks = '';
-  if (o.colors.avoid && o.colors.avoid.length) {
-    avoidBlocks = `<div class="avoid-label">— 今日不宜 —</div><div class="palette">` +
-      o.colors.avoid.map(a => `
-        <div class="color-block avoid-block" style="background:${esc(a.hex)};color:${esc(a.text_hex)}">
-          <div class="cb-name">${esc(a.name)}</div>
-          <div class="cb-status">${esc(a.element)}</div>
-          <div class="cb-relation">${esc(a.reason)}</div>
-        </div>`).join('') + `</div>`;
+  let avoidBlocks='';
+  if(o.colors.avoid?.length){
+    avoidBlocks=`<div class="avoid-label">— 今日不宜 —</div><div class="palette">`+o.colors.avoid.map(a=>`
+      <div class="color-block avoid-block" style="background:${esc(a.hex)};color:${esc(a.text_hex)}">
+        <div class="cb-name">${esc(a.name)}</div><div class="cb-status">${esc(a.element)}</div><div class="cb-relation">${esc(a.reason)}</div>
+      </div>`).join('')+`</div>`;
   }
 
-  let ideasHtml = '';
-  if (r.outfit_ideas && r.outfit_ideas.length) {
-    ideasHtml = `
-      <div class="collapsible-header" onclick="toggle(this)">
-        <span class="collapsible-title">💡 搭配思路（三选一）</span>
-        <span class="collapsible-arrow">▶</span>
-      </div>
-      <div class="collapsible-content">
-        <ul class="idea-list">${r.outfit_ideas.map(i => `<li>${esc(i)}</li>`).join('')}</ul>
-      </div>`;
-  }
+  let ideas=r.outfit_ideas?.length?`
+    <div class="collapsible-header" onclick="toggle(this)"><span class="collapsible-title">💡 搭配思路（三选一）</span><span class="collapsible-arrow">▶</span></div>
+    <div class="collapsible-content"><ul class="idea-list">${r.outfit_ideas.map(i=>`<li>${esc(i)}</li>`).join('')}</ul></div>`:'';
 
-  let inspirationHtml = '';
-  if (r.inspiration && r.inspiration.length) {
-    inspirationHtml = `
-      <div class="collapsible-header" onclick="toggle(this)">
-        <span class="collapsible-title">🎨 配色灵感</span>
-        <span class="collapsible-arrow">▶</span>
-      </div>
-      <div class="collapsible-content">
-        <div class="inspiration-chips">${r.inspiration.map(i => `<span class="chip">${esc(i)}</span>`).join('')}</div>
-      </div>`;
-  }
+  let insp=r.inspiration?.length?`
+    <div class="collapsible-header" onclick="toggle(this)"><span class="collapsible-title">🎨 配色灵感</span><span class="collapsible-arrow">▶</span></div>
+    <div class="collapsible-content"><div class="inspiration-chips">${r.inspiration.map(i=>`<span class="chip">${esc(i)}</span>`).join('')}</div></div>`:'';
 
-  let pitfallsHtml = '';
-  if (r.pitfalls && r.pitfalls.length) {
-    pitfallsHtml = `
-      <div class="collapsible-header" onclick="toggle(this)">
-        <span class="collapsible-title">⚠️ 避坑提醒</span>
-        <span class="collapsible-arrow">▶</span>
-      </div>
-      <div class="collapsible-content">
-        <div class="pitfall-list">${r.pitfalls.map(p => `<div class="pitfall-item">${esc(p)}</div>`).join('')}</div>
-      </div>`;
-  }
+  let pit=r.pitfalls?.length?`
+    <div class="collapsible-header" onclick="toggle(this)"><span class="collapsible-title">⚠️ 避坑提醒</span><span class="collapsible-arrow">▶</span></div>
+    <div class="collapsible-content"><div class="pitfall-list">${r.pitfalls.map(p=>`<div class="pitfall-item">${esc(p)}</div>`).join('')}</div></div>`:'';
 
-  let notesHtml = '';
-  if (o.special_notes && o.special_notes.length) {
-    notesHtml = `<ul class="special-list">${o.special_notes.map(s => `<li>${esc(s)}</li>`).join('')}</ul>`;
-  }
+  let notes=o.special_notes?.length?`<ul class="special-list">${o.special_notes.map(s=>`<li>${esc(s)}</li>`).join('')}</ul>`:'';
 
-  const review = data.review;
-  let reviewHtml = '';
-  if (review) {
-    reviewHtml = `
-      <div class="card review-section has-data">
-        <div class="card-title">🌙 晚间复盘</div>
-        <div class="review-summary">${esc(review.summary)}</div>
-        ${review.weather_check ? `<div class="review-weather">天气校验：${esc(review.weather_check.deviation)}</div>` : ''}
-        ${review.tomorrow_preview ? `
-          <div class="review-tomorrow">
-            明日预告：<strong>${esc(review.tomorrow_preview.ganzhi)}·${esc(review.tomorrow_preview.element)}日</strong>
-            ${esc(review.tomorrow_preview.main_color)}
-            ${review.tomorrow_preview.weather_note ? `<br>${esc(review.tomorrow_preview.weather_note)}` : ''}
-          </div>` : ''}
-      </div>`;
-  }
+  let review=data.review?`
+    <div class="card"><div class="card-title">🌙 晚间复盘</div>
+      <div class="review-summary">${esc(review.summary)}</div>
+      ${review.weather_check?`<div class="review-weather">天气校验：${esc(review.weather_check.deviation)}</div>`:''}
+      ${review.tomorrow_preview?`<div class="review-tomorrow">明日预告：<strong>${esc(review.tomorrow_preview.ganzhi)}·${esc(review.tomorrow_preview.element)}日</strong> ${esc(review.tomorrow_preview.main_color)}${review.tomorrow_preview.weather_note?`<br>${esc(review.tomorrow_preview.weather_note)}`:''}</div>`:''}
+    </div>`:'';
 
-  app.innerHTML = `
-    <!-- Header -->
-    <div class="header">
-      <div class="header-date">${esc(o.date)} ${esc(o.weekday)}</div>
-      <div class="header-meta">
-        <span class="meta-tag element-tag">${esc(o.ganzhi)} · ${esc(o.element)}日</span>
-        <span class="meta-tag">${esc(o.chongsha)}</span>
-        <span class="meta-tag luck-good">${esc(o.luck)}</span>
-      </div>
+  return `
+  <div class="header">
+    <div class="header-date">${esc(o.date)} ${esc(o.weekday)}</div>
+    <div class="header-meta">
+      <span class="meta-tag element-tag">${esc(o.ganzhi)} · ${esc(o.element)}日</span>
+      <span class="meta-tag">${esc(o.chongsha)}</span>
+      <span class="meta-tag luck-good">${esc(o.luck)}</span>
     </div>
+  </div>
+  <div class="card"><div class="card-title">🌤 今日天气 · 武汉</div>
+    <div class="weather-main"><div class="weather-icon">${esc(w.icon||'🌡')}</div>
+      <div class="weather-info"><div class="weather-temp">${w.low??'—'}<span> - ${w.high??'—'}°C</span></div>
+      <div class="weather-cond">${esc(w.condition||'')}</div></div></div>
+    ${w.tip?`<div class="weather-tip" style="margin-top:8px">${esc(w.tip)}</div>`:''}
+  </div>
+  <div class="card"><div class="card-title">👗 今日穿搭 · ${esc(o.ganzhi)}${esc(o.element)}日</div>
+    <div class="palette">
+      <div class="color-block primary" style="background:${esc(o.colors.primary.hex)};color:${esc(o.colors.primary.text_hex)}">
+        <div class="cb-name">${esc(o.colors.primary.name)}</div><div class="cb-status">${esc(o.colors.primary.status)}</div><div class="cb-relation">${esc(o.colors.primary.relation)}</div>
+      </div>
+      <div class="color-block" style="background:${esc(o.colors.secondary.hex)};color:${esc(o.colors.secondary.text_hex)}">
+        <div class="cb-name">${esc(o.colors.secondary.name)}</div><div class="cb-status">${esc(o.colors.secondary.status)}</div><div class="cb-relation">${esc(o.colors.secondary.relation)}</div>
+      </div>
+    </div>${avoidBlocks}
+    <div class="rec-color-name">🔥 推荐：${esc(r.color_name||'')}</div>
+    <div class="rec-why">${esc(r.why||'')}</div>
+    ${r.base_color?`<div class="base-color-note">基础色：${esc(r.base_color)}</div>`:''}
+    ${ideas}${insp}${pit}
+  </div>
+  <div class="card"><div class="card-title">⚫ 黑 / 白 / 牛仔 · 当日影响</div>
+    <div class="neutral-row">
+      <div class="neutral-item"><div class="neutral-label">黑色/牛仔（水）</div><div class="neutral-status ${stCls(n.black_denim?.status)}">${esc(n.black_denim?.status||'—')}</div><div class="neutral-reason">${esc(n.black_denim?.reason||'')}</div></div>
+      <div class="neutral-item"><div class="neutral-label">白色/银灰（金）</div><div class="neutral-status ${stCls(n.white_silver?.status)}">${esc(n.white_silver?.status||'—')}</div><div class="neutral-reason">${esc(n.white_silver?.reason||'')}</div></div>
+    </div>
+  </div>
+  ${o.fabric_tip?`<div class="card"><div class="card-title">🧵 面料与场景</div><div class="tip-row"><strong>面料：</strong>${esc(o.fabric_tip)}</div>${o.scene_tip?`<div class="tip-row"><strong>场景：</strong>${esc(o.scene_tip)}</div>`:''}</div>`:''}
+  ${notes?`<div class="card"><div class="card-title">📝 特别提醒</div>${notes}</div>`:''}
+  ${review}
+  <div class="card"><div class="card-title">📌 快速便签</div>
+    <div class="notes-list" id="notesList"></div>
+    <div class="note-input-row"><input class="note-input" id="noteInput" placeholder="随手记…" onkeydown="if(event.key==='Enter')addNote()"><button class="btn-add" onclick="addNote()">＋</button></div>
+    <div style="font-size:11px;color:var(--text3);margin-top:8px">便签保存在本设备 · 跨设备同步请告诉 AI 助手更新</div>
+  </div>
+  <div class="footer"><div>CClois 的个人工作台</div><div>数据更新：${esc(data.meta?.last_updated||'—')}</div></div>`;
+}
 
-    <!-- Weather -->
-    <div class="card">
-      <div class="card-title">🌤 今日天气 · 武汉</div>
-      <div class="weather-main">
-        <div class="weather-icon">${esc(w.icon || '🌡')}</div>
-        <div class="weather-info">
-          <div class="weather-temp">${w.low ?? '—'}<span> - ${w.high ?? '—'}°C</span></div>
-          <div class="weather-cond">${esc(w.condition || '')}</div>
+/* ── Week View ── */
+function renderWeek() {
+  if (!WEEKLY?.week?.days?.length) return '<div class="loading">暂无本周数据</div>';
+  const today = new Date().toISOString().slice(0,10);
+  let h = `<div class="card"><div class="card-title">📅 ${esc(WEEKLY.week.start_date)} ~ ${esc(WEEKLY.week.end_date)}</div>
+    <div class="week-summary">${esc(WEEKLY.week.summary||'')}</div></div>`;
+
+  WEEKLY.week.days.forEach((d,i) => {
+    const isToday = d.date === today;
+    const isPast = d.date < today;
+    h += `
+    <div class="week-card ${isToday?'today':''} ${isPast?'past':''}" onclick="toggleWeek(${i})">
+      <div class="week-card-header">
+        <div class="week-color-dot" style="background:${esc(d.main_hex)};color:${esc(d.main_text_hex||'#fff')}">${esc(d.element)}</div>
+        <div class="week-day-info">
+          <div class="week-date">${esc(d.weekday)} ${esc(d.date?.slice(5))} ${isToday?'<span style="color:var(--accent);font-size:11px">← 今天</span>':''}</div>
+          <div class="week-ganzhi">${esc(d.ganzhi)} · ${esc(d.element)}日</div>
         </div>
+        <div class="week-temp">${d.weather?`${d.weather.low}-${d.weather.high}°`:''}<br>${d.weather?esc(d.weather.icon||''):''}</div>
       </div>
-      ${w.tip ? `<div class="weather-tip" style="margin-top:8px">${esc(w.tip)}</div>` : ''}
-    </div>
-
-    <!-- Outfit Colors -->
-    <div class="card">
-      <div class="card-title">👗 今日穿搭 · ${esc(o.ganzhi)}${esc(o.element)}日</div>
-
-      <div class="palette">
-        <div class="color-block primary" style="background:${esc(o.colors.primary.hex)};color:${esc(o.colors.primary.text_hex)}">
-          <div class="cb-name">${esc(o.colors.primary.name)}</div>
-          <div class="cb-status">${esc(o.colors.primary.status)}</div>
-          <div class="cb-relation">${esc(o.colors.primary.relation)}</div>
+      <div class="week-detail" id="wd${i}">
+        <div class="week-colors">
+          <div class="week-color-tag" style="background:${esc(d.main_hex)};color:${esc(d.main_text_hex||'#fff')}">主 ${esc(d.main_color)}</div>
+          <div class="week-color-tag" style="background:${esc(d.recommend_hex||d.main_hex)};color:#fff">推 ${esc(d.recommend)}</div>
         </div>
-        <div class="color-block" style="background:${esc(o.colors.secondary.hex)};color:${esc(o.colors.secondary.text_hex)}">
-          <div class="cb-name">${esc(o.colors.secondary.name)}</div>
-          <div class="cb-status">${esc(o.colors.secondary.status)}</div>
-          <div class="cb-relation">${esc(o.colors.secondary.relation)}</div>
-        </div>
+        <div class="week-rec">🔥 推荐：${esc(d.recommend)}</div>
+        <div class="week-neutral">⚫ 黑/牛仔：${esc(d.black_denim||'—')}　⚪ 白/银：${esc(d.white_silver||'—')}　🚫 不宜：${esc(d.avoid||'')}</div>
+        ${d.adjust?`<div class="week-adjust">📡 天气微调：${esc(d.adjust)}</div>`:''}
       </div>
-      ${avoidBlocks}
+    </div>`;
+  });
+  h += `<div class="footer"><div>数据更新：${esc(WEEKLY.meta?.last_updated||'—')}</div></div>`;
+  return h;
+}
+function toggleWeek(i){document.getElementById('wd'+i)?.classList.toggle('show')}
 
-      <div class="rec-section">
-        <div class="rec-color-name">🔥 推荐：${esc(r.color_name || '')}</div>
-        <div class="rec-why">${esc(r.why || '')}</div>
-        ${r.base_color ? `<div class="base-color-note">基础色：${esc(r.base_color)}</div>` : ''}
-      </div>
+/* ── Month View ── */
+function renderMonth() {
+  if (!MONTHLY?.days?.length) return '<div class="loading">暂无本月数据</div>';
+  const today = new Date().toISOString().slice(0,10);
+  const wds = ['一','二','三','四','五','六','日'];
 
-      ${ideasHtml}
-      ${inspirationHtml}
-      ${pitfallsHtml}
-    </div>
+  let h = `<div class="month-summary">${esc(MONTHLY.month_name||'')} · ${esc(MONTHLY.summary||'')}</div>`;
+  h += '<div class="month-grid">';
+  wds.forEach(w=>{h+=`<div class="month-weekday">${w}</div>`});
 
-    <!-- Black/White/Denim -->
-    <div class="card">
-      <div class="card-title">⚫ 黑 / 白 / 牛仔 · 当日影响</div>
-      <div class="neutral-row">
-        <div class="neutral-item">
-          <div class="neutral-label">黑色/牛仔（水）</div>
-          <div class="neutral-status ${statusClass(n.black_denim?.status)}">${esc(n.black_denim?.status || '—')}</div>
-          <div class="neutral-reason">${esc(n.black_denim?.reason || '')}</div>
-        </div>
-        <div class="neutral-item">
-          <div class="neutral-label">白色/银灰（金）</div>
-          <div class="neutral-status ${statusClass(n.white_silver?.status)}">${esc(n.white_silver?.status || '—')}</div>
-          <div class="neutral-reason">${esc(n.white_silver?.reason || '')}</div>
-        </div>
-      </div>
-    </div>
+  // padding for first day
+  const firstDow = new Date(MONTHLY.days[0].date+'T00:00:00').getDay();
+  const pad = firstDow===0?6:firstDow-1;
+  for(let i=0;i<pad;i++) h+='<div class="month-cell" style="visibility:hidden"></div>';
 
-    <!-- Tips -->
-    ${o.fabric_tip ? `<div class="card"><div class="card-title">🧵 面料与场景</div><div class="tip-row"><strong>面料：</strong>${esc(o.fabric_tip)}</div>${o.scene_tip ? `<div class="tip-row"><strong>场景：</strong>${esc(o.scene_tip)}</div>` : ''}</div>` : ''}
-
-    <!-- Special Notes -->
-    ${notesHtml ? `<div class="card"><div class="card-title">📝 特别提醒</div>${notesHtml}</div>` : ''}
-
-    ${reviewHtml}
-
-    <!-- Quick Notes -->
-    <div class="card">
-      <div class="card-title">📌 快速便签</div>
-      <div class="notes-list" id="notesList"></div>
-      <div class="note-input-row">
-        <input class="note-input" id="noteInput" placeholder="随手记…" onkeydown="if(event.key==='Enter')addNote()">
-        <button class="btn-add" onclick="addNote()">＋</button>
-      </div>
-      <div style="font-size:11px;color:var(--text3);margin-top:8px">便签保存在本设备 · 跨设备同步请告诉 AI 助手更新</div>
-    </div>
-
-    <div class="footer">
-      <div>CClois 的个人工作台</div>
-      <div class="update-time">数据更新：${esc(data.meta?.last_updated || '—')}</div>
-    </div>
-  `;
-
-  renderNotes();
+  MONTHLY.days.forEach(d=>{
+    const isToday=d.date===today, isPast=d.date<today;
+    h+=`<div class="month-cell ${isToday?'today':''} ${isPast?'past':''}" title="${esc(d.ganzhi)} ${esc(d.element)}日 · 推荐${esc(d.recommend)}">
+      <div class="mc-date">${d.date?.slice(8)}</div>
+      <div class="mc-ganzhi">${esc(d.ganzhi)}</div>
+      <div class="mc-color-bar" style="background:${esc(d.color)}"></div>
+    </div>`;
+  });
+  h+='</div>';
+  h+=`<div class="footer"><div>色条=当日主色 · 点按看详情 · 数据更新：${esc(MONTHLY.meta?.last_updated||'—')}</div></div>`;
+  return h;
 }
 
-// ── Collapsible ──
-function toggle(header) {
-  header.classList.toggle('open');
-  const content = header.nextElementSibling;
-  content.classList.toggle('open');
+/* ── Notes (localStorage) ── */
+function getNotes(){try{return JSON.parse(localStorage.getItem('wb_notes')||'[]')}catch{return[]}}
+function saveNotes(n){localStorage.setItem('wb_notes',JSON.stringify(n))}
+function renderNotes(){
+  const l=document.getElementById('notesList');if(!l)return;
+  const ns=getNotes();if(!ns.length){l.innerHTML='';return}
+  l.innerHTML=ns.map((n,i)=>`<div class="note-item ${n.pinned?'pinned':''}">${n.pinned?'<span class="note-pin">📌</span>':''}${esc(n.text)}<span class="note-delete" onclick="deleteNote(${i})">✕</span></div>`).join('');
 }
-
-// ── Notes (localStorage) ──
-function getNotes() {
-  try { return JSON.parse(localStorage.getItem('wb_notes') || '[]'); }
-  catch { return []; }
+function addNote(){
+  const inp=document.getElementById('noteInput'),t=inp.value.trim();if(!t)return;
+  const ns=getNotes();ns.unshift({text:t,pinned:false,created:new Date().toISOString()});
+  saveNotes(ns);inp.value='';renderNotes();
 }
-function saveNotes(n) { localStorage.setItem('wb_notes', JSON.stringify(n)); }
+function deleteNote(i){const ns=getNotes();ns.splice(i,1);saveNotes(ns);renderNotes()}
 
-function renderNotes() {
-  const list = document.getElementById('notesList');
-  if (!list) return;
-  const notes = getNotes();
-  if (!notes.length) { list.innerHTML = ''; return; }
-  list.innerHTML = notes.map((n, i) => `
-    <div class="note-item ${n.pinned ? 'pinned' : ''}">
-      ${n.pinned ? '<span class="note-pin">📌</span>' : ''}${esc(n.text)}
-      <span class="note-delete" onclick="deleteNote(${i})">✕</span>
-    </div>`).join('');
-}
-
-function addNote() {
-  const input = document.getElementById('noteInput');
-  const text = input.value.trim();
-  if (!text) return;
-  const notes = getNotes();
-  notes.unshift({ text, pinned: false, created: new Date().toISOString() });
-  saveNotes(notes);
-  input.value = '';
-  renderNotes();
-}
-
-function deleteNote(i) {
-  const notes = getNotes();
-  notes.splice(i, 1);
-  saveNotes(notes);
-  renderNotes();
-}
-
-load();
+loadAll();
 </script>
 </body>
 </html>

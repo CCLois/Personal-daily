@@ -1,0 +1,43 @@
+{
+  "meta": {
+    "last_updated": "2026-10-08T19:26:00+08:00",
+    "updated_by": "OpenClaw",
+    "version": "1.0.0"
+  },
+  "month": "2026-10",
+  "month_name": "2026年10月",
+  "summary": "本月火土为主，中旬后金水渐旺。上中旬火木穿搭顺势，下旬注意金日白色禁忌。",
+  "days": [
+    { "date": "2026-10-01", "weekday": "周三", "ganzhi": "戊申", "element": "土", "family": "土", "color": "#C8A87C", "recommend_family": "火", "recommend": "珊瑚粉/砖红" },
+    { "date": "2026-10-02", "weekday": "周四", "ganzhi": "己酉", "element": "土", "family": "土", "color": "#C8A87C", "recommend_family": "火", "recommend": "西瓜红" },
+    { "date": "2026-10-03", "weekday": "周五", "ganzhi": "庚戌", "element": "金", "family": "金", "color": "#C0C0C0", "recommend_family": "火", "recommend": "火色系" },
+    { "date": "2026-10-04", "weekday": "周六", "ganzhi": "辛亥", "element": "金", "family": "金", "color": "#C0C0C0", "recommend_family": "火", "recommend": "火色系" },
+    { "date": "2026-10-05", "weekday": "周日", "ganzhi": "壬子", "element": "木", "family": "木", "color": "#2D6A4F", "recommend_family": "火", "recommend": "木生火" },
+    { "date": "2026-10-06", "weekday": "周一", "ganzhi": "癸丑", "element": "土", "family": "土", "color": "#C8A87C", "recommend_family": "火", "recommend": "珊瑚粉" },
+    { "date": "2026-10-07", "weekday": "周二", "ganzhi": "甲寅", "element": "水", "family": "水", "color": "#4A90D9", "recommend_family": "木", "recommend": "绿色系" },
+    { "date": "2026-10-08", "weekday": "周三", "ganzhi": "乙卯", "element": "水", "family": "水", "color": "#4A90D9", "recommend_family": "木", "recommend": "森林绿" },
+    { "date": "2026-10-09", "weekday": "周四", "ganzhi": "丙辰", "element": "土", "family": "土", "color": "#C8A87C", "recommend_family": "火", "recommend": "砖红" },
+    { "date": "2026-10-10", "weekday": "周五", "ganzhi": "丁巳", "element": "土", "family": "土", "color": "#C8A87C", "recommend_family": "火", "recommend": "西瓜红" },
+    { "date": "2026-10-11", "weekday": "周六", "ganzhi": "戊午", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "同气共振" },
+    { "date": "2026-10-12", "weekday": "周日", "ganzhi": "己未", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "同气共振" },
+    { "date": "2026-10-13", "weekday": "周一", "ganzhi": "庚申", "element": "木", "family": "木", "color": "#2D6A4F", "recommend_family": "火", "recommend": "木生火" },
+    { "date": "2026-10-14", "weekday": "周二", "ganzhi": "辛酉", "element": "木", "family": "木", "color": "#2D6A4F", "recommend_family": "火", "recommend": "木生火" },
+    { "date": "2026-10-15", "weekday": "周三", "ganzhi": "壬戌", "element": "水", "family": "水", "color": "#4A90D9", "recommend_family": "木", "recommend": "绿色系" },
+    { "date": "2026-10-16", "weekday": "周四", "ganzhi": "癸亥", "element": "水", "family": "水", "color": "#4A90D9", "recommend_family": "木", "recommend": "绿色系" },
+    { "date": "2026-10-17", "weekday": "周五", "ganzhi": "甲子", "element": "金", "family": "金", "color": "#C0C0C0", "recommend_family": "火", "recommend": "火色系" },
+    { "date": "2026-10-18", "weekday": "周六", "ganzhi": "乙丑", "element": "金", "family": "金", "color": "#C0C0C0", "recommend_family": "火", "recommend": "火色系" },
+    { "date": "2026-10-19", "weekday": "周日", "ganzhi": "丙寅", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "同气共振" },
+    { "date": "2026-10-20", "weekday": "周一", "ganzhi": "丁卯", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "同气共振" },
+    { "date": "2026-10-21", "weekday": "周二", "ganzhi": "戊辰", "element": "木", "family": "木", "color": "#2D6A4F", "recommend_family": "火", "recommend": "木生火" },
+    { "date": "2026-10-22", "weekday": "周三", "ganzhi": "己巳", "element": "木", "family": "木", "color": "#2D6A4F", "recommend_family": "火", "recommend": "木生火" },
+    { "date": "2026-10-23", "weekday": "周四", "ganzhi": "庚午", "element": "土", "family": "土", "color": "#C8A87C", "recommend_family": "火", "recommend": "珊瑚粉" },
+    { "date": "2026-10-24", "weekday": "周五", "ganzhi": "辛未", "element": "土", "family": "土", "color": "#C8A87C", "recommend_family": "火", "recommend": "砖红" },
+    { "date": "2026-10-25", "weekday": "周六", "ganzhi": "壬申", "element": "金", "family": "金", "color": "#C0C0C0", "recommend_family": "火", "recommend": "火色系" },
+    { "date": "2026-10-26", "weekday": "周日", "ganzhi": "癸酉", "element": "金", "family": "金", "color": "#C0C0C0", "recommend_family": "火", "recommend": "火色系" },
+    { "date": "2026-10-27", "weekday": "周一", "ganzhi": "甲戌", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "同气共振" },
+    { "date": "2026-10-28", "weekday": "周二", "ganzhi": "乙亥", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "同气共振" },
+    { "date": "2026-10-29", "weekday": "周三", "ganzhi": "丙子", "element": "水", "family": "水", "color": "#4A90D9", "recommend_family": "木", "recommend": "绿色系" },
+    { "date": "2026-10-30", "weekday": "周四", "ganzhi": "丁丑", "element": "水", "family": "水", "color": "#4A90D9", "recommend_family": "木", "recommend": "绿色系" },
+    { "date": "2026-10-31", "weekday": "周五", "ganzhi": "戊寅", "element": "土", "family": "土", "color": "#C8A87C", "recommend_family": "火", "recommend": "珊瑚粉" }
+  ]
+}
