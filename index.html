@@ -41,7 +41,7 @@
 
   /* ── Tab Bar ── */
   .tab-bar{display:flex;gap:6px;padding:14px 16px 4px}
-  .tab-btn{flex:1;padding:9px 0;text-align:center;font-size:14px;font-weight:600;color:var(--text3);background:transparent;border:none;border-radius:10px;cursor:pointer;transition:all .2s}
+  .tab-btn{flex:1;padding:9px 0;text-align:center;font-size:14px;font-weight:600;color:#8A8480;background:transparent;border:none;border-radius:10px;cursor:pointer;transition:all .2s}
   .tab-btn.active{color:var(--text);background:var(--surface);box-shadow:var(--shadow)}
 
   /* ── Header ── */
@@ -54,8 +54,8 @@
 
   /* ── Quote ── */
   .quote-bar{padding:10px 20px 6px}
-  .quote-text{font-size:14px;color:var(--text2);line-height:1.7;font-style:italic;padding-left:12px;border-left:3px solid var(--accent);border-radius:2px}
-  .quote-source{font-size:11px;color:var(--text3);margin-top:4px;padding-left:15px}
+  .quote-text{font-size:14px;color:#5A5048;line-height:1.7;font-style:italic;padding-left:12px;border-left:3px solid var(--accent);border-radius:2px}
+  .quote-source{font-size:11px;color:#8A8078;margin-top:4px;padding-left:15px}
 
   /* ── Cards ── */
   .card{background:var(--surface);border-radius:var(--radius);margin:8px 16px;padding:18px;box-shadow:var(--shadow);border:1px solid var(--border)}
@@ -107,6 +107,20 @@
   .card-yellow .card-title{color:var(--yellow)}
   .card-green .neutral-item{background:#fff;border-color:#D4E8D8}
   .card-teal .neutral-item{background:#fff;border-color:#CCE8E2}
+  /* tinted card body text */
+  .card-green .rec-why,.card-green .collapsible-title,.card-green .tip-row,.card-green .special-list li{color:#3D5044}
+  .card-teal .neutral-label{color:var(--teal)}
+  .card-teal .neutral-reason{color:#4A6A62}
+  .card-blue .tip-row,.card-blue .special-list li{color:#3E4A5C}
+  .card-purple .review-summary,.card-purple .review-weather{color:#4A3E5C}
+  .card-purple .review-tomorrow{background:#fff;border-color:#DDD5EC}
+  .card-yellow .note-item{color:#5C5240;border-color:#E8E0C8}
+  .card-yellow .note-input{color:#5C5240}
+  .card-green .base-color-note{background:#fff;border-color:#D4E8D8}
+  .card-green .chip{background:#fff;border-color:#D4E8D8}
+  .card-green .idea-list li{color:#3D5044}
+  .card-green .collapsible-header{border-color:#D4E8D8}
+  .card-green .pitfall-item{color:#B44444}
 
   /* ── Collapsible ── */
   .collapsible-header{display:flex;align-items:center;justify-content:space-between;cursor:pointer;padding:14px 0 10px;border-top:1px solid var(--border);margin-top:6px;user-select:none}
@@ -167,9 +181,9 @@
   .week-card-header{display:flex;align-items:center;gap:12px}
   .week-color-dot{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:800}
   .week-day-info{flex:1}
-  .week-date{font-size:14px;font-weight:700;color:var(--text)}
-  .week-ganzhi{font-size:11px;color:var(--text3);margin-top:2px}
-  .week-temp{font-size:12px;color:var(--text3);text-align:right;line-height:1.5}
+  .week-date{font-size:14px;font-weight:700;color:#3A3A42}
+  .week-ganzhi{font-size:11px;color:#8A8490;margin-top:2px}
+  .week-temp{font-size:12px;color:#8A8490;text-align:right;line-height:1.5}
   .week-detail{display:none;margin-top:12px;padding-top:12px;border-top:1px solid var(--border)}
   .week-detail.show{display:block}
   .week-colors{display:flex;gap:6px;margin-bottom:8px}
@@ -184,8 +198,8 @@
   .month-weekday{text-align:center;font-size:10px;font-weight:700;color:var(--text3);padding:4px 0}
   .month-cell{aspect-ratio:1;border-radius:9px;display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--surface);border:1px solid var(--border);overflow:hidden;cursor:default;transition:box-shadow .15s}
   .month-cell:active{box-shadow:var(--shadow-hover)}
-  .month-cell .mc-date{font-size:11px;font-weight:700;color:var(--text2)}
-  .month-cell .mc-ganzhi{font-size:8px;color:var(--text3);margin-top:1px}
+  .month-cell .mc-date{font-size:11px;font-weight:700;color:#4A4A52}
+  .month-cell .mc-ganzhi{font-size:8px;color:#9A94A0;margin-top:1px}
   .month-cell .mc-color-bar{width:60%;height:3px;border-radius:2px;margin-top:3px}
   .month-cell.today{border-color:var(--accent);box-shadow:0 0 0 1.5px var(--accent)}
   .month-cell.today .mc-date{color:var(--accent)}
