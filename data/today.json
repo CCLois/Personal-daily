@@ -48,14 +48,14 @@
           "element": "金",
           "reason": "金生水助旺（水已过旺）+ 金克木伤喜用，今日最不宜",
           "hex": "#C0C0C0",
-          "text_hex": "#555555"
+          "text_hex": "#333333"
         },
         {
           "name": "黄/土色",
           "element": "土",
           "reason": "土克水虽制衡，但非喜用，效果一般",
           "hex": "#B8860B",
-          "text_hex": "#888888"
+          "text_hex": "#FFFFFF"
         }
       ]
     },
