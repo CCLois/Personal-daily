@@ -3,14 +3,14 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<meta name="theme-color" content="#0d0d1a">
+<meta name="theme-color" content="#F7F4EF">
 <title>工作台</title>
 <style>
   :root {
-    --bg:#0d0d1a; --card:#16162a; --card2:#1e1e38; --border:#2a2a4a;
-    --text:#e8e8f0; --text2:#9898b0; --text3:#68687f;
-    --accent:#e8a87c; --green:#6bcb77; --red:#e84545; --yellow:#ffd93d; --blue:#6bcbef;
-    --radius:14px; --shadow:0 2px 12px rgba(0,0,0,0.3);
+    --bg:#F7F4EF; --card:#FFFFFF; --card2:#F2EEE7; --border:#E6E0D4;
+    --text:#2A2A35; --text2:#6B6B7A; --text3:#A0A0AE;
+    --accent:#C4785A; --green:#4A9B5E; --red:#D64545; --yellow:#D4A017; --blue:#4A8FCF;
+    --radius:14px; --shadow:0 2px 10px rgba(0,0,0,0.05);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
   body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;background:var(--bg);color:var(--text);min-height:100vh;max-width:480px;margin:0 auto;padding-bottom:40px}
@@ -22,12 +22,12 @@
   .tab-btn.active{color:var(--accent);border-color:var(--accent);background:var(--card2)}
 
   /* Header */
-  .header{padding:16px 20px 12px;background:linear-gradient(180deg,#12122a 0%,var(--bg) 100%)}
+  .header{padding:16px 20px 12px;background:linear-gradient(180deg,#FFFDF8 0%,var(--bg) 100%)}
   .header-date{font-size:28px;font-weight:700;letter-spacing:-0.5px}
   .header-meta{display:flex;gap:8px;margin-top:6px;flex-wrap:wrap}
   .meta-tag{font-size:12px;padding:3px 10px;border-radius:20px;background:var(--card2);color:var(--text2);border:1px solid var(--border)}
-  .meta-tag.luck-good{color:var(--green);border-color:#2a5a35}
-  .meta-tag.element-tag{color:var(--accent);border-color:#5a4530}
+  .meta-tag.luck-good{color:var(--green);border-color:#C8E0CC}
+  .meta-tag.element-tag{color:var(--accent);border-color:#E8C8A8}
 
   /* Cards */
   .card{background:var(--card);border-radius:var(--radius);margin:10px 14px;padding:16px;box-shadow:var(--shadow);border:1px solid var(--border)}
@@ -41,11 +41,11 @@
 
   /* ── Weather Card ── */
   .weather-hero{border-radius:12px;margin:8px 14px;padding:12px 14px;position:relative;overflow:hidden;border:1px solid var(--border)}
-  .wh-sunny{background:linear-gradient(135deg,#1a1a4e 0%,#2d4a8e 60%,#3a6ab0 100%)}
-  .wh-cloudy{background:linear-gradient(135deg,#20203a 0%,#35355a 60%,#48487a 100%)}
-  .wh-rainy{background:linear-gradient(135deg,#151d2e 0%,#253550 60%,#35486a 100%)}
-  .wh-snowy{background:linear-gradient(135deg,#22223e 0%,#3a4a6e 60%,#5a7a9e 100%)}
-  .wh-default{background:linear-gradient(135deg,#1a1a3a 0%,#2a2a52 100%)}
+  .wh-sunny{background:linear-gradient(135deg,#FFE8C8 0%,#FFF3E0 100%);color:#8B5E34}
+  .wh-cloudy{background:linear-gradient(135deg,#E8E6F0 0%,#F2F0F5 100%);color:#5A5A70}
+  .wh-rainy{background:linear-gradient(135deg,#C8DCE8 0%,#E0ECF5 100%);color:#3A5A70}
+  .wh-snowy{background:linear-gradient(135deg,#E0E8F0 0%,#F0F5FA 100%);color:#4A6A80}
+  .wh-default{background:linear-gradient(135deg,#EDE8DF 0%,#F7F4EF 100%);color:#6B6B7A}
   .wh-inner{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
   .wh-icon{font-size:32px;filter:drop-shadow(0 1px 4px rgba(0,0,0,.3))}
   .wh-info{flex:1;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
@@ -103,12 +103,12 @@
   /* Notes */
   .notes-list{display:flex;flex-direction:column;gap:8px}
   .note-item{background:var(--card2);border-radius:10px;padding:10px 12px;font-size:13px;line-height:1.5;cursor:pointer;position:relative;border:1px solid var(--border)}
-  .note-item.pinned{border-color:var(--accent2)}
+  .note-item.pinned{border-color:var(--accent)}
   .note-item .note-pin{color:var(--accent);margin-right:4px}
   .note-item .note-delete{position:absolute;right:8px;top:8px;color:var(--text3);font-size:14px;padding:2px 6px;cursor:pointer}
   .note-input-row{display:flex;gap:8px;margin-top:10px}
   .note-input{flex:1;background:var(--card2);border:1px solid var(--border);border-radius:10px;padding:10px 12px;color:var(--text);font-size:13px;outline:none}
-  .note-input:focus{border-color:var(--accent2)}
+  .note-input:focus{border-color:var(--accent)}
   .btn-add{background:var(--accent);color:#fff;border:none;border-radius:10px;padding:10px 16px;font-size:13px;cursor:pointer;font-weight:600}
 
   /* Special */
@@ -141,7 +141,7 @@
   .week-color-tag{flex:1;text-align:center;padding:6px 4px;border-radius:8px;font-size:11px}
   .week-rec{font-size:13px;color:var(--accent);font-weight:600;margin-bottom:6px}
   .week-neutral{font-size:11px;color:var(--text3)}
-  .week-adjust{margin-top:6px;font-size:11px;color:var(--yellow);background:rgba(255,217,61,.08);padding:6px 8px;border-radius:6px}
+  .week-adjust{margin-top:6px;font-size:11px;color:var(--yellow);background:rgba(212,160,23,.08);padding:6px 8px;border-radius:6px}
 
   /* ── Monthly View ── */
   .month-summary{font-size:13px;color:var(--text2);line-height:1.7;margin:10px 14px}
