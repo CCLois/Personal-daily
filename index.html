@@ -424,7 +424,7 @@ function toggleWeek(i){document.getElementById('wd'+i)?.classList.toggle('show')
 /* ── Month View ── */
 function renderMonth() {
   if (!MONTHLY?.days?.length) return '<div class="loading">暂无本月数据</div>';
-  const today = new Date().toISOString().slice(0,10);
+  const today = localDateStr();
   const wds = ['一','二','三','四','五','六','日'];
 
   let h = `<div class="month-summary">${esc(MONTHLY.month_name||'')} · ${esc(MONTHLY.summary||'')}</div>`;
@@ -464,6 +464,10 @@ function addNote(){
 function deleteNote(i){const ns=getNotes();ns.splice(i,1);saveNotes(ns);renderNotes()}
 
 loadAll();
+</script>
+</body>
+</html>
+;
 </script>
 </body>
 </html>
