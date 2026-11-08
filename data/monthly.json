@@ -1,6 +1,6 @@
 {
   "meta": {
-    "last_updated": "2026-11-01T15:05:00+08:00",
+    "last_updated": "2026-11-08T15:05:00+08:00",
     "updated_by": "OpenClaw",
     "version": "1.1.0"
   },
@@ -46,6 +46,13 @@
     { "date": "2026-11-05", "weekday": "周四", "ganzhi": "癸未", "element": "水", "family": "水", "color": "#2D6A4F", "recommend_family": "木", "recommend": "橄榄绿/苔绿" },
     { "date": "2026-11-06", "weekday": "周五", "ganzhi": "甲申", "element": "木", "family": "木", "color": "#E76F51", "recommend_family": "火", "recommend": "正红/珊瑚粉" },
     { "date": "2026-11-07", "weekday": "周六", "ganzhi": "乙酉", "element": "木", "family": "木", "color": "#E76F51", "recommend_family": "火", "recommend": "砖红/蜜桃橘" },
-    { "date": "2026-11-08", "weekday": "周日", "ganzhi": "丙戌", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "西瓜红/正红" }
+    { "date": "2026-11-08", "weekday": "周日", "ganzhi": "丙戌", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "西瓜红/正红" },
+    { "date": "2026-11-09", "weekday": "周一", "ganzhi": "丁亥", "element": "火", "family": "火", "color": "#E76F51", "recommend_family": "火", "recommend": "珊瑚粉/砖红" },
+    { "date": "2026-11-10", "weekday": "周二", "ganzhi": "戊子", "element": "土", "family": "土", "color": "#E76F51", "recommend_family": "火", "recommend": "正红/橘红" },
+    { "date": "2026-11-11", "weekday": "周三", "ganzhi": "己丑", "element": "土", "family": "土", "color": "#E76F51", "recommend_family": "火", "recommend": "珊瑚粉/蜜桃橘" },
+    { "date": "2026-11-12", "weekday": "周四", "ganzhi": "庚寅", "element": "金", "family": "金", "color": "#E76F51", "recommend_family": "火", "recommend": "砖红/正红" },
+    { "date": "2026-11-13", "weekday": "周五", "ganzhi": "辛卯", "element": "金", "family": "金", "color": "#E76F51", "recommend_family": "火", "recommend": "珊瑚粉/砖红" },
+    { "date": "2026-11-14", "weekday": "周六", "ganzhi": "壬辰", "element": "水", "family": "水", "color": "#2D6A4F", "recommend_family": "木", "recommend": "森林绿/橄榄绿" },
+    { "date": "2026-11-15", "weekday": "周日", "ganzhi": "癸巳", "element": "水", "family": "水", "color": "#2D6A4F", "recommend_family": "木", "recommend": "橄榄绿/苔绿" }
   ]
 }
